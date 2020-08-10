@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a href="#home" class="w3-bar-item w3-button"><b>Portfolio</b> Optimization</a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <a href="#type" class="w3-bar-item w3-button">Portfolio</a>
+      <a href="#result" class="w3-bar-item w3-button">Result</a>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+  <img class="w3-image" src="https://cdn.pixabay.com/photo/2017/09/11/15/34/animals-2739386_960_720.jpg" alt="Architecture" width="1500" height="800">
+  <div class="w3-display-middle w3-margin-top w3-center">
+    <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>Portfolio</b></span> <span class="w3-hide-small w3-text-light-grey">Optimization</span></h1>
+  </div>
+</header>
+
+<!-- Page content -->
+<div class="w3-content w3-padding" style="max-width:1564px">
+
+  <!-- Contact Section -->
+  <div class="w3-container w3-padding-32" id="type">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Portfolio</h3>
+    <p>주식 종목 입력창.</p>
+    </div>
+
+<form>
+  시작일:<br>
+  <input type="month" id="startdate"><br>
+  종료일:<br>
+  <input type="month" id="enddate"><br>
+  시작금액:<br>
+  <div class="input-group-prepend">
+  <span class="input-group-text">￦</span>
+  <input type="number" value = 100000 min = 0 max = 100 id="balance">
+  </div>
+</form>
+
+#함수 추가
+
+
+
+<div id="forms">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+
+      <select name="country" class="custom-select">
+      <option selected>선택</option>
+      <option value="korea">한국</option>
+      <option value="usa">미국</option>
+      <option value="etc">기타</option>
+      </select>
+
+      <input id="stockcode" class="form-control.input-lg" type="text" placeholder="종목 입력">
+      <button class="w3-button w3-block w3-red w3-round" onclick="document.getElementById('download').style.display='block'"><i class="fa fa-search"></i></button>
+
+     <input id="weight" class="form-control.input-lg" type="number" min = 0 max = 100 placeholder="비중">
+       <div class="input-group-append">
+        <span class="input-group-text">%</span>
+        </div>
+     </div>
+     </div>
+</div>
+
+
+
+    <!-- 최적화버튼 -->
+  <div>
+    <form action="이게 최적화 버튼 누르면 연결" target="_blank">
+      <button class="w3-button w3-black w3-section" type="submit">
+       Optimization
+      </button>
+    </form>
+  </div>
+</div>
+
+    <!-- Result Section -->
+  <div class="w3-container w3-padding-32" id="result">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Result</h3>
+    <p>최적화 결과 나오는 창
+    </p>
+  </div>
+
+
+
+
+<!-- 버튼 테스트 -->
+          <button class="w3-button w3-block w3-red w3-round" onclick="document.getElementById('download').style.display='block'"><i class="fa fa-search"></i></button>
+
+
+
+
+<!-- Modal -->
+<div id="download" class="w3-modal w3-animate-opacity">
+  <div class="w3-modal-content" style="padding:32px">
+    <div class="w3-container w3-white">
+      <i onclick="document.getElementById('download').style.display='none'" class="fa fa-remove w3-xlarge w3-button w3-transparent w3-right w3-xlarge"></i>
+      <h2 class="w3-wide">Search</h2>
+      <p>찾고자 하는 종목명 또는 종목코드를 입력하세요.</p>
+      <p><input class="w3-input w3-border" type="text" placeholder="입력"></p>
+      <button type="button" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('download').style.display='none'">Search</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- Image of location/map -->
+<div class="w3-container">
+  <img src="https://cdn.pixabay.com/photo/2014/08/01/15/51/manhattan-407703_960_720.jpg" class="w3-image" style="width:100%">
+</div>
+
+<!-- End page content -->
+</div>
+
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-16">
+  <p>Powered by <a href="https://spartacodingclub.kr/" target="_blank" class="w3-hover-text-green">Sparta Coding Club</a></p>
+</footer>
+
+</body>
+</html>
