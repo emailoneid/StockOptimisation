@@ -9,6 +9,29 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+function find_total(){
+    var arr = document.getElementsByName('weight');
+    var total = 0;
+    for(var i = 0; i < arr.length; i++){
+        if(parseInt(arr[i].value))
+            total += parseInt(arr[i].value);
+    }
+    document.getElementById('total_weight').value = total;
+}
+    </script>
+<script>
+$(document).ready(function(){
+  $("#more").click(function(){
+    $("#stocks").clone().appendTo("#123");
+  });
+});
+</script>
+<script>
+  function clear(){
+     $('#ticker').val('');
+  };
+</script>
 <body>
 
 <!-- Navbar (sit on top) -->
@@ -34,63 +57,88 @@
 <!-- Page content -->
 <div class="w3-content w3-padding" style="max-width:1564px">
 
-  <!-- Contact Section -->
-  <div class="w3-container w3-padding-32" id="type">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Portfolio</h3>
-    <p>주식 종목 입력창.</p>
+  <!-- Portfolio Section -->
+  <div class="w3-container w3-padding-32" id="condition">
+    <div class="col-md-5">
+      <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Portfolio</h3>
+
+      <div class="form-group">
+        <label for="start_month">Start Date</label>
+        <input type="month" class="form-control" id="start_month">
+      </div>
+      <div class="form-group">
+        <label for="end_month">End Date:</label>
+        <input type="month" class="form-control" id="end_month">
+      </div>
+      <label for="investment">Investment:</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">￦</span>
+          <input type="number" value=100000 min=0 class="form-control" id="investment">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="benchmark">Benchmark:</label>
+          <select class="form-control" id="benchmark">
+            <option>KOSPI</option>
+            <option>S&P 500</option>
+          </select>
+      </div>
     </div>
 
-<form>
-  시작일:<br>
-  <input type="month" id="startdate"><br>
-  종료일:<br>
-  <input type="month" id="enddate"><br>
-  시작금액:<br>
-  <div class="input-group-prepend">
-  <span class="input-group-text">￦</span>
-  <input type="number" value = 100000 min = 0 max = 100 id="balance">
-  </div>
-</form>
+  <!-- Button Section -->
+    <div class="w3-container w3-padding">Portfolio Assets:
+      <button type="button" id="more" class="btn btn-outline-dark btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button type="button" id="clear" onclick="document.getElementById('ticker').value = ''" class="btn btn-outline-dark btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
+    </div>
 
-#함수 추가
-
-
-
-<div id="forms">
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-
-      <select name="country" class="custom-select">
-      <option selected>선택</option>
-      <option value="korea">한국</option>
-      <option value="usa">미국</option>
-      <option value="etc">기타</option>
-      </select>
-
-      <input id="stockcode" class="form-control.input-lg" type="text" placeholder="종목 입력">
-      <button class="w3-button w3-block w3-red w3-round" onclick="document.getElementById('download').style.display='block'"><i class="fa fa-search"></i></button>
-
-     <input id="weight" class="form-control.input-lg" type="number" min = 0 max = 100 placeholder="비중">
-       <div class="input-group-append">
-        <span class="input-group-text">%</span>
+  <!-- Stock Section -->
+    <div class="w3-container w3-padding-24" id="stock_section">
+      <div class="form-inline w3-margin-bottom" id="stocks">
+        <div class="form-group">
+          <select class="form-control" id="country">
+            <option>KOREA</option>
+            <option>USA</option>
+            <option>ETC</option>
+          </select>
+          <div class="form-group">
+            <input type="text" class="form-control" id="ticker" placeholder="Ticker">
+          </div>
+          <button type="submit" class="w3-button w3-red w3-round"
+                  onclick="document.getElementById('download').style.display='block'">
+            <i class="fa fa-search"></i></button>
+          <input type="number" max=100 min=0 class="form-control" name='weight' id="weight1" placeholder="weight">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
         </div>
-     </div>
-     </div>
-</div>
+      </div>
 
+      <!-- More Section -->
+      <div id="123">
+      </div>
 
+      <!-- Total Section -->
+      <div class="col-md-5" id="total_section">
+      <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16"></h3>
+        <div class="form-inline"><h3 class="col-md-4">Total</h3>
+          <input type="text" class="form-control" onblur="find_total()" id="total_weight">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+      </div>
+      <!-- 최적화버튼 -->
+      <div>
+        <form action="이게 최적화 버튼 누르면 연결" target="_blank">
+          <button class="w3-button w3-black w3-section" type="submit">
+            Optimization
+          </button>
+        </form>
+      </div>
+    </div>
 
-    <!-- 최적화버튼 -->
-  <div>
-    <form action="이게 최적화 버튼 누르면 연결" target="_blank">
-      <button class="w3-button w3-black w3-section" type="submit">
-       Optimization
-      </button>
-    </form>
-  </div>
-</div>
-
-    <!-- Result Section -->
+  <!-- Result Section -->
   <div class="w3-container w3-padding-32" id="result">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Result</h3>
     <p>최적화 결과 나오는 창
@@ -101,7 +149,7 @@
 
 
 <!-- 버튼 테스트 -->
-          <button class="w3-button w3-block w3-red w3-round" onclick="document.getElementById('download').style.display='block'"><i class="fa fa-search"></i></button>
+    <button class="w3-button w3-block w3-red w3-round" onclick="document.getElementById('download').style.display='block'"><i class="fa fa-search"></i></button>
 
 
 
