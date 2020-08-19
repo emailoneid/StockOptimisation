@@ -17,23 +17,77 @@ function find_total(){
         if(parseInt(arr[i].value))
             total += parseInt(arr[i].value);
     }
-    document.getElementById('total_weight').value = total;
+    $('#total_weight').val(total);
 }
-    </script>
-<script>
+
 $(document).ready(function(){
   $("#more").click(function(){
     $("#stocks").clone().appendTo("#123");
   });
 });
+
+$(document).ready(function clear(){
+  $('.stocklist').html('');
+  show_stocks();
+  });
+
+function show_stocks(){
+  let temp_html = `<div class="form-inline w3-margin-bottom stocklist" id="stocks">
+        <div class="form-group">
+          <select class="form-control" id="country">
+            <option>KOREA</option>
+            <option>USA</option>
+          </select>
+          <div class="form-group">
+            <input type="text" class="form-control" id="ticker" placeholder="Ticker">
+          </div>
+          <button type="submit" class="w3-button w3-red w3-round"
+                  onclick="document.getElementById('download').style.display='block'">
+            <i class="fa fa-search"></i></button>
+          <input type="number" max=100 min=0 class="form-control weight-input" name='weight' id="weight1" placeholder="weight" onkeyup="find_total()">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+      </div>`
+  $('.stocklist').append(temp_html);
+}
 </script>
 <script>
-  function clear(){
-     $('#ticker').val('');
-  };
+$(document).ready(function upload(){
+  let ticker1 = $('#ticker1).val();
+  let weight1 = $('#weight1').val();
+  let ticker2 = $('#ticker2).val();
+  let weight2 = $('#weight2').val();
+
+  $.ajax({
+    type: "POST",
+    url: "/portfolio",
+    data: {ticker1: ticker1, weight1: weight1, ticker2: ticker2, weight2: weight2},
+    success: function(response){
+      if (response['result'] == 'success') {
+        alert('Optimization Complete');
+        window.location.reload();
+      }else{
+        alert('Failed')
+      }
+    }
+  })
+});
+
+function download() {
+  $.ajax({
+    type: "GET",
+    url: "/portfolio",
+    data: {},
+    success: function(response) {
+      console.log();
+      $('#result').append(response);
+    }
+  })
+}
 </script>
 <body>
-
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-white w3-wide w3-padding w3-card">
@@ -45,7 +99,6 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
-
 <!-- Header -->
 <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
   <img class="w3-image" src="https://cdn.pixabay.com/photo/2017/09/11/15/34/animals-2739386_960_720.jpg" alt="Architecture" width="1500" height="800">
@@ -53,15 +106,12 @@ $(document).ready(function(){
     <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>Portfolio</b></span> <span class="w3-hide-small w3-text-light-grey">Optimization</span></h1>
   </div>
 </header>
-
 <!-- Page content -->
 <div class="w3-content w3-padding" style="max-width:1564px">
-
   <!-- Portfolio Section -->
   <div class="w3-container w3-padding-32" id="condition">
     <div class="col-md-5">
       <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Portfolio</h3>
-
       <div class="form-group">
         <label for="start_month">Start Date</label>
         <input type="month" class="form-control" id="start_month">
@@ -85,44 +135,58 @@ $(document).ready(function(){
           </select>
       </div>
     </div>
-
   <!-- Button Section -->
     <div class="w3-container w3-padding">Portfolio Assets:
       <button type="button" id="more" class="btn btn-outline-dark btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></button>
-      <button type="button" id="clear" onclick="document.getElementById('ticker').value = ''" class="btn btn-outline-dark btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
+      <button type="button" id="clear" onclick= "clear()" class="btn btn-outline-dark btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
     </div>
-
   <!-- Stock Section -->
     <div class="w3-container w3-padding-24" id="stock_section">
-      <div class="form-inline w3-margin-bottom" id="stocks">
+      <div class="form-inline w3-margin-bottom stocklist" id="stocks">
         <div class="form-group">
           <select class="form-control" id="country">
             <option>KOREA</option>
             <option>USA</option>
-            <option>ETC</option>
           </select>
           <div class="form-group">
-            <input type="text" class="form-control" id="ticker" placeholder="Ticker">
+            <input type="text" class="form-control" id="ticker1" placeholder="Ticker">
           </div>
           <button type="submit" class="w3-button w3-red w3-round"
                   onclick="document.getElementById('download').style.display='block'">
             <i class="fa fa-search"></i></button>
-          <input type="number" max=100 min=0 class="form-control" name='weight' id="weight1" placeholder="weight">
+          <input type="number" max=100 min=0 class="form-control weight-input" name='weight' id="weight1" placeholder="weight" onkeyup="find_total()">
           <div class="input-group-append">
             <span class="input-group-text">%</span>
           </div>
         </div>
       </div>
-
+      <!-- Stock 2-->
+      <div class="form-inline w3-margin-bottom stocklist" id="stocks2">
+        <div class="form-group">
+          <select class="form-control" id="country2">
+            <option>KOREA</option>
+            <option>USA</option>
+          </select>
+          <div class="form-group">
+            <input type="text" class="form-control" id="ticker2" placeholder="Ticker">
+          </div>
+          <button type="submit" class="w3-button w3-red w3-round"
+                  onclick="document.getElementById('download').style.display='block'">
+            <i class="fa fa-search"></i></button>
+          <input type="number" max=100 min=0 class="form-control weight-input" name='weight' id="weight2" placeholder="weight" onkeyup="find_total()">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+      </div>
       <!-- More Section -->
       <div id="123">
       </div>
-
       <!-- Total Section -->
       <div class="col-md-5" id="total_section">
       <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16"></h3>
         <div class="form-inline"><h3 class="col-md-4">Total</h3>
-          <input type="text" class="form-control" onblur="find_total()" id="total_weight">
+          <input type="text" class="form-control" id="total_weight">
           <div class="input-group-append">
             <span class="input-group-text">%</span>
           </div>
@@ -130,30 +194,19 @@ $(document).ready(function(){
       </div>
       <!-- 최적화버튼 -->
       <div>
-        <form action="이게 최적화 버튼 누르면 연결" target="_blank">
-          <button class="w3-button w3-black w3-section" type="submit">
+          <button onlcick="upload()" class="w3-button w3-black w3-section" id='optimization' type="submit">
             Optimization
           </button>
-        </form>
       </div>
     </div>
-
   <!-- Result Section -->
   <div class="w3-container w3-padding-32" id="result">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Result</h3>
     <p>최적화 결과 나오는 창
     </p>
   </div>
-
-
-
-
 <!-- 버튼 테스트 -->
     <button class="w3-button w3-block w3-red w3-round" onclick="document.getElementById('download').style.display='block'"><i class="fa fa-search"></i></button>
-
-
-
-
 <!-- Modal -->
 <div id="download" class="w3-modal w3-animate-opacity">
   <div class="w3-modal-content" style="padding:32px">
@@ -166,24 +219,15 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
-
-
-
-
-
 <!-- Image of location/map -->
 <div class="w3-container">
   <img src="https://cdn.pixabay.com/photo/2014/08/01/15/51/manhattan-407703_960_720.jpg" class="w3-image" style="width:100%">
 </div>
-
 <!-- End page content -->
 </div>
-
-
 <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-16">
   <p>Powered by <a href="https://spartacodingclub.kr/" target="_blank" class="w3-hover-text-green">Sparta Coding Club</a></p>
 </footer>
-
 </body>
 </html>
